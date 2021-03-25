@@ -1,0 +1,7 @@
+From: 249031@student.pwr.edu.pl
+
+User-Agent: GrzmotowyPtak 1.2.3.4
+
+MIME-Version: 1.0000000000001
+
+To: test@test.pwr.edu.pl
