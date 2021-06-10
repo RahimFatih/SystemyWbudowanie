@@ -1,30 +1,33 @@
 import time
 import threading
+import msvcrt
 
 
 t = time.time()
+keyM = "a"
 
 
-
-def zegar(t):
-    i=0
+def thread1():
+    global keyM
+    global t
+    
+    lock = threading.Lock()
     while True:
-        result = time.asctime(time.localtime(t))
-        print("Result:", result)
-        time.sleep(1)
-        t=t+1
-        i=i+1
-        if i>15:
-            break
+        with lock:
+            keyM = msvcrt.getch()
+            if keyM == b"s":
+                my_string = str(input('Enter date(yyyy-mm-dd hh:mm): '))
+                t = time.mktime(time.strptime(my_string, "%Y-%m-%d %H:%M"))
+                keyM="a"
+            
 
 
-x = threading.Thread(target=zegar,args=(t,))
 
+threading.Thread(target = thread1).start()
 
-x.start()
-time.sleep(10)
-print("minelo10selk")
-x.join()
-print("koniec")
-quit()
-# x.join()
+while True:
+    result = time.asctime(time.localtime(t))
+    if(keyM!=b"s"):
+        print("Time: ", result)
+    time.sleep(1)
+    t=t+1
